@@ -1,0 +1,22 @@
+# templates/job.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "kjobexample.fullname" . }}
+spec:
+  template:
+    metadata:
+      name: {{ include "kjobexample.fullname" . }}
+    spec:
+      containers:
+      - name: my-job-container
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        command: ["node"]
+        args: ["/app/index.js"]
+        env:
+          - name: MY_CONFIG_VALUE
+            valueFrom:
+              configMapKeyRef:
+                name: {{ include "kjobexample.fullname" . }}
+                key: myConfigValue
+      restartPolicy: Never

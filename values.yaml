@@ -1,0 +1,9 @@
+namespace: test-job
+
+image:
+  repository: kubernates-job-ex
+  tag: v1
+
+configmap:
+  myConfigValue: "Hello from ConfigMap!"
+
